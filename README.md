@@ -1,7 +1,6 @@
 # Guard
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/danilosciarra/guard.svg)](https://pkg.go.dev/github.com/danilosciarra/guard)
-[![Go Report Card](https://goreportcard.com/badge/github.com/danilosciarra/guard)](https://goreportcard.com/report/github.com/danilosciarra/guard)
 [![License: MIT](https://img.shields.io/github/license/danilosciarra/guard)](LICENSE)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/danilosciarra/guard)](go.mod)
 
