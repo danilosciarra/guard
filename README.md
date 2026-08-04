@@ -57,13 +57,12 @@ func main() {
 	u := User{Name: "Dan", Age: 30, Email: "dan@example.com"}
 
 	v := guard.New()
-	ok, err := v.Validate(&u)
-	if err != nil {
+	if err := v.Validate(&u); err != nil {
 		fmt.Println("validation error:", err)
 		return
 	}
 
-	fmt.Println("valid:", ok)
+	fmt.Println("valid")
 }
 ```
 
@@ -128,7 +127,7 @@ v.RegisterValidator("token_prefix", func(path string, value any) bool {
 	return len(s) > 4 && s[:4] == "tok_"
 })
 
-ok, err := v.Validate(&Payload{Token: "tok_123"})
+err := v.Validate(&Payload{Token: "tok_123"})
 ```
 
 If a custom validator is registered for a tag, it is used instead of built-in validator parsing.
@@ -167,15 +166,15 @@ order := Order{
 }
 
 v := guard.New()
-ok, err := v.Validate(&order)
+err := v.Validate(&order)
 ```
 
 ## Error handling
 
-`Validate` returns `(bool, error)`.
+`Validate` returns `error`.
 
-- `ok == true, err == nil`: all validations passed
-- `ok == false, err != nil`: validation failed or invalid configuration/input
+- `err == nil`: all validations passed
+- `err != nil`: validation failed or invalid configuration/input
 
 The package defines typed errors in `errors.go`:
 
@@ -189,8 +188,7 @@ Validator parsing errors come from the `validator` package and are wrapped with 
 ### Example: inspect error type
 
 ```go
-ok, err := v.Validate(&u)
-if err != nil {
+if err := v.Validate(&u); err != nil {
 	switch e := err.(type) {
 	case *guard.ValidationError:
 		fmt.Println("field:", e.FieldPath, "tag:", e.Tag, "value:", e.Value)

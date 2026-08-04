@@ -5,7 +5,7 @@ import "reflect"
 func ResolveValue(v any) (reflect.Value, bool) {
 	val := reflect.ValueOf(v)
 
-	for val.Kind() == reflect.Ptr {
+	for val.Kind() == reflect.Pointer {
 		if val.IsNil() {
 			return val, true
 		}

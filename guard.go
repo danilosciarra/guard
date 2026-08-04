@@ -35,7 +35,7 @@ func (m *Guard) RegisterValidator(tag string, val customValidationFunction) {
 }
 
 func (m *Guard) resolveValue(val reflect.Value) reflect.Value {
-	for val.Kind() == reflect.Ptr {
+	for val.Kind() == reflect.Pointer {
 		if val.IsNil() {
 			return reflect.Value{}
 		}
@@ -45,7 +45,7 @@ func (m *Guard) resolveValue(val reflect.Value) reflect.Value {
 	if val.Kind() == reflect.Interface {
 		if !val.IsNil() {
 			val = reflect.ValueOf(val.Interface())
-			if val.Kind() == reflect.Ptr {
+			if val.Kind() == reflect.Pointer {
 				val = val.Elem()
 			}
 		}
@@ -69,7 +69,7 @@ func (m *Guard) Validate(obj any) error {
 
 	if g.isSlice {
 		myObj := g.obj
-		if reflect.TypeOf(myObj).Kind() == reflect.Ptr {
+		if reflect.TypeOf(myObj).Kind() == reflect.Pointer {
 			myObj = reflect.ValueOf(g.obj).Elem().Interface()
 		}
 		sObj := reflect.ValueOf(myObj)
@@ -141,7 +141,7 @@ func (m *Guard) buildValidationTags(obj interface{}, basePath string) error {
 			return nil
 		}
 		val = val.Index(0)
-		if val.Kind() == reflect.Ptr {
+		if val.Kind() == reflect.Pointer {
 			if val.IsNil() {
 				return nil
 			}
@@ -165,7 +165,7 @@ func (m *Guard) buildValidationTags(obj interface{}, basePath string) error {
 		if basePath != "" {
 			pathKey = fmt.Sprintf("%s/%s", basePath, field.Name)
 		}
-		if fieldVal.Kind() == reflect.Ptr {
+		if fieldVal.Kind() == reflect.Pointer {
 			if fieldVal.IsNil() {
 				continue
 			}
@@ -179,7 +179,7 @@ func (m *Guard) buildValidationTags(obj interface{}, basePath string) error {
 		if fieldVal.Kind() == reflect.Slice {
 			for j := 0; j < fieldVal.Len(); j++ {
 				item := fieldVal.Index(j)
-				if item.Kind() == reflect.Ptr {
+				if item.Kind() == reflect.Pointer {
 					if item.IsNil() {
 						continue
 					}
@@ -229,7 +229,7 @@ func (m *Guard) getValueByPath(path string) (interface{}, bool) {
 			index := -1
 			for i := 0; i < val.Len(); i++ {
 				item := val.Index(i)
-				for item.Kind() == reflect.Ptr {
+				for item.Kind() == reflect.Pointer {
 					if item.IsNil() {
 						break
 					}
@@ -255,7 +255,7 @@ func (m *Guard) getValueByPath(path string) (interface{}, bool) {
 		} else {
 			return nil, false
 		}
-		for val.Kind() == reflect.Ptr {
+		for val.Kind() == reflect.Pointer {
 			if val.IsNil() {
 				return nil, false
 			}
