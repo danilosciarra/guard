@@ -3,6 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/danilosciarra/guard.svg)](https://pkg.go.dev/github.com/danilosciarra/guard)
 [![License: MIT](https://img.shields.io/github/license/danilosciarra/guard)](LICENSE)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/danilosciarra/guard)](go.mod)
+[![CI](https://github.com/danilosciarra/guard/actions/workflows/test.yml/badge.svg)](https://github.com/danilosciarra/guard/actions/workflows/test.yml)
 
 A lightweight, extensible validation library for Go with first-class support for nested structs, slices, and custom validators.
 

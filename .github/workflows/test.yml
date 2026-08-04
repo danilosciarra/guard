@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+          cache: false
 
       - name: Download dependencies
         run: go mod download
@@ -35,3 +36,4 @@ jobs:
         uses: golangci/golangci-lint-action@v8
         with:
           version: latest
+          install-mode: binary
